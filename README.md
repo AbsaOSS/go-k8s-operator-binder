@@ -51,15 +51,15 @@ metadata:
 import "github.com/AbsaOSS/go-k8s-operator-binder/k8smap"
 
 var settings = struct {
-	// binding required value
+    // binding required value
     Type          string   `k8smap"company.example.io/strategy, require=true"`
-	// binding slice of strings
+    // binding slice of strings
     PrimaryGeoTag []string `k8smap:"company.example.io/primary-geotags"`
-	// if the configuration is missing, then set the default int value to 30 
+    // if the configuration is missing, then set the default int value to 30 
     TTLSeconds int         `k8smap:"k8gb.io/dns-ttl-seconds, default=30"`
     // binding bool value
-    Autoscale bool         `k8smap:"k8gb.io/dns-ttl-seconds"`
-	// nested structure
+    Autoscale bool         `k8smap:"k8gb.io/dns-ttl-seconds"` 
+    // nested structure
     Credentials struct{
         // public nested protected with default test 
         UID       `k8smap:"k8gb.io/uid, protected=true, default=test`
@@ -68,19 +68,19 @@ var settings = struct {
     }
 }{}
 
-// Fetch resource instance
-ing := &netv1.Ingress{}
-err := r.Get(ctx, req.NamespacedName, ing)
-if err != nil {
-	// do Something
+  // Fetch resource instance
+  ing := &netv1.Ingress{}
+  err := r.Get(ctx, req.NamespacedName, ing)
+  if err != nil {
+    // do Something
+  }
+  annotations = ing.GetAnnotations()
+
+  // binding 
+  err = k8smap.Bind(annotations, &settings)
+  if err != nil {
+    // do something
 }
-annotations = ing.GetAnnotations()
-// binding 
-err = k8smap.Bind(annotations, &settings)
-if err != nil {
-	// do something
-}
-// fmt.Println(settings)
 ```
 This is all you need, the `settings` will contain the correct values loaded from the Annotations.
 Keywords like `protected` or `default` can be configured in various ways as well as various data-types, 
