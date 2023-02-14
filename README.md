@@ -58,7 +58,7 @@ var settings = struct {
     // if the configuration is missing, then set the default int value to 30 
     TTLSeconds int         `k8smap:"k8gb.io/dns-ttl-seconds, default=30"`
     // binding bool value
-    Autoscale bool         `k8smap:"k8gb.io/dns-ttl-seconds"` 
+    Autoscale bool         `k8smap:"k8gb.io/autoscale"` 
     // nested structure
     Credentials struct{
         // public nested protected with default test 
