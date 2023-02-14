@@ -80,7 +80,7 @@ var settings = struct {
   err = k8smap.Bind(annotations, &settings)
   if err != nil {
     // do something
-}
+  }
 ```
 This is all you need, the `settings` will contain the correct values loaded from the Annotations.
 Keywords like `protected` or `default` can be configured in various ways as well as various data-types, 
